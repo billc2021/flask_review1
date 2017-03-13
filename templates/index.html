@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>This is the homepage</h1>
+    {% if session.user_name %}
+    <h2>HELLO {{session.user_name}}</h2>
+    <a href="/logout">Logout</a> {% else %}
+    <a href="/login_and_registration">Login or Register</a> {% endif %}
+
+    <br> {% if template_all_users %}
+    <hr>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>User Name</th>
+            <th>Date Joined</th>
+        </tr>
+        {% for user in template_all_users %}
+
+
+        <tr>
+            <td>
+                <a href="/edit/{{user.id}}">{{user.email}}</a>
+            </td>
+
+            <td>
+                <a href="/edit/{{user.id}}">
+                    {{user.username}}
+                </a>
+            </td>
+
+            <td>
+                <a href="/edit/{{user.id}}">{{user.created_at}}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% endif %}
+
+    <hr> {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor %} {% endif %} {% endwith %}
+</body>
+
+</html>
